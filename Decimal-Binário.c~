@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int potencia(int num, int pot) {
+    int i, res=1;
+    for (i=1; i<=pot; i++){
+        res *= num;
+    }
+    return res;
+}
+
+int main(void){
+    int decimal;
+    int i = 0;
+
+    scanf("%d", &decimal);
+    while(potencia(2, i) < decimal){
+        i++;
+    }
+    while(i >= 0){
+        if(potencia(2, i) <= decimal){
+            printf("1");
+            decimal = decimal - potencia(2, i);
+            i--;
+        }else{
+            printf("0");
+            i--;
+        }
+    }
+}
