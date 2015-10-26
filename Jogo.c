@@ -3,11 +3,11 @@
 #include <stdlib.h>
 
 FILE *fp;
-int qnt = 0, check = 0;
+int qnt = 0, check = 0, indice, vidas, pontos;
 char palavras[1000][20];
 char pM[20];
 
-void getPalavras() {
+void getArq() {
     
     fp = fopen("palavras", "r");
     while(fscanf(fp, "%s", palavras[qnt]) != EOF) {
@@ -45,4 +45,36 @@ void cadastra(char str[]) {
         printf("Caractére não suportado! Cadastro falhou.\n");
     }
     fclose(fp);
+}
+
+char* getPalavra() {
+    return palavras[rand() % (qnt - 1)];
+}
+
+void toca(char str[], int nivel) {
+    for(i = 0; i < strlen(str); i++) {
+        char cmT[40], cmP[40], cmE[40];
+        
+        sprintf(cmT, "%s%.1f%s", "play -n -q synth ", 0.8/nivel, " sine 750 vol 0.1");
+        sprintf(cmP, "%s%.1f%s", "play -n -q synth ", 0.4/nivel, " sine 750 vol 0.1");
+        sprintf(cmE, "%s%.1f%s", "play -n -q synth ", 0.4/nivel, " sine 750 vol 0");
+        
+        if(str[i] == '-') {
+            system(cmT);
+        }
+                   
+        if(str[i] == '.') {
+            system(cmP);
+        }
+                   
+        if(str[i] == ' ') {
+            system(cmE);
+        }
+    }
+    
+}
+
+void init() {
+    vidas = 3;
+    pontos = 0;
 }

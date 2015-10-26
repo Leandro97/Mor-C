@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Traducao.c"
 #include "Jogo.c"
 
@@ -19,11 +20,13 @@
 //}
 
 int main() {
-    int opc, pid, teste, tempo = 8;
-    char str[100];
+    int opc, pid, nivel, p, j;
+    char str[1000], word[1000];
     char kill[15];
     
-    getPalavras();
+    srand(time(NULL));
+    getArq();
+    
     for(;;) {
         //header    
             printf("################################################################################\n");    
@@ -34,7 +37,7 @@ printf("########################################################################
         printf("2 - Tradução: Morse -> Alfabeto.\n");
         printf("3 - Tradução: Alfabeto -> Morse.\n");
         printf("4 - Cadastar palavras.\n");
-        printf("5 - Test your might!\n");
+        printf("5 - Teste seus conhecimentos.\n");
         printf("6 - Sair.\n");
         
         scanf("%d", &opc);
@@ -135,28 +138,65 @@ printf("########################################################################
                 system("clear");
                 break;    
             
-            //Test your might(jogo)
+            //Jogo
             case 5:
-//                pid = fork();
-//                sprintf(kill, "%s%d", "kill -9 ", pid);
-//                    
-//                if(pid > 0) {
-//                    for(i = tempo; i >= 0; i--) {
-//                        printf("Tempo restante: %d segundos\n", i);
-//                        printf("P\n");
-//                        sleep(1);
-//                        system("clear");
-//                    }    
-//                    system(kill);
-//                }
-//                    
-//                if(pid == 0) {
-//                    for(i = tempo; i >= 0 ; i--) {
-//                        scanf("%d", &teste);
-//                        printf("%d\n", teste);
-//                       }
-//                }
+                printf("O objetivo deste jogo é treinar o reconhecimento de Morse através da audição.\nSerão apresentadaos sons de palavras aleatórias e sua missão é informar que\npalavra(em alfabeto) é essa. Você possui 3 vidas, ao errar perde uma.\nAo acertar, uma nova palavra é gerada e voce ganha 10 pontos. As palavras são\napresentadas a cada 3 segundos.\n");
+                do {
+                    printf("Escolha o nível. Easy(1), Normal(2), Hard(3)\n");
+                    scanf("%d", &nivel);
+                } while(nivel != 1 && nivel != 2 && nivel != 3);
                 
+            
+                system("clear");
+                init();
+                memset(aux, '\0', 1000);
+                strcpy(word, getPalavra());
+                alphaToMorse(word, aux);
+            
+                
+                for(;;){
+                    pid = fork();
+                    sprintf(kill, "%s%d", "kill -9 ", pid);
+                    
+                    if(pid > 0) {
+                        for(;;) {
+                            printf("Vidas: %d.      Pontuação: %d\n", vidas, pontos);
+                            printf("Palavra: %s\n", word);
+                            scanf(" %[^\n]s", str);
+
+                            if(strcasecmp(str, word) == 0) {
+                                pontos += 10;
+                                memset(aux, '\0', 1000);
+                                strcpy(word, getPalavra());
+                                alphaToMorse(word, aux);
+                                system(kill);
+                                sleep(1,5);
+                                break;
+                            } else {
+                                system("clear");
+                                vidas--;
+                            }
+
+                            if(strcmp(str, ";") == 0 || vidas == 0) { 
+                                system("clear");
+                                system(kill);
+                                break;
+                            }
+                        }
+                        if(strcmp(str, ";") == 0 || vidas == 0) { 
+                                system("clear");
+                                system(kill);
+                                break;
+                        }
+                    }
+
+                    if(pid == 0) {
+                        toca(aux, nivel);
+                        sleep(3);
+                    }
+                    system("clear");
+                }
+                break;
             default:
                 break;
         }  
@@ -164,3 +204,4 @@ printf("########################################################################
     
     return 0;
 }
+
