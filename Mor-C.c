@@ -161,6 +161,7 @@ printf("########################################################################
                     if(pid > 0) {
                         for(;;) {
                             printf("Vidas: %d.      Pontuação: %d\n", vidas, pontos);
+                            //to mostrando a palavra só pra testar, na versão final vou tirar
                             printf("Palavra: %s\n", word);
                             scanf(" %[^\n]s", str);
 
