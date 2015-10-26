@@ -153,11 +153,10 @@ printf("########################################################################
                 strcpy(word, getPalavra());
                 alphaToMorse(word, aux);
             
-                
+                pid = fork();
+                sprintf(kill, "%s%d", "kill -9 ", pid);
+            
                 for(;;){
-                    pid = fork();
-                    sprintf(kill, "%s%d", "kill -9 ", pid);
-                    
                     if(pid > 0) {
                         for(;;) {
                             printf("Vidas: %d.      Pontuação: %d\n", vidas, pontos);
@@ -171,7 +170,12 @@ printf("########################################################################
                                 strcpy(word, getPalavra());
                                 alphaToMorse(word, aux);
                                 system(kill);
+                                
+                                pid = fork();
+                                sprintf(kill, "%s%d", "kill -9 ", pid);
+                                
                                 sleep(1,5);
+                                system("clear");
                                 break;
                             } else {
                                 system("clear");
@@ -190,12 +194,11 @@ printf("########################################################################
                                 break;
                         }
                     }
-
+                    
                     if(pid == 0) {
                         toca(aux, nivel);
                         sleep(3);
-                    }
-                    system("clear");
+                    }   
                 }
                 break;
             default:
