@@ -26,6 +26,7 @@ int main() {
     
     srand(time(NULL));
     getArq();
+    getJogadores();
     
     for(;;) {
         //header    
@@ -38,12 +39,13 @@ printf("########################################################################
         printf("3 - Tradução: Alfabeto -> Morse.\n");
         printf("4 - Cadastar palavras.\n");
         printf("5 - Teste seus conhecimentos.\n");
-        printf("6 - Sair.\n");
+        printf("6 - Ranking.\n");
+        printf("7 - Sair.\n");
         
         scanf("%d", &opc);
         memset(str, '\n', 100);
         
-        if(opc == 6) {
+        if(opc == 7) {
             system("clear");
             printf("Até mais! ;D\n");
             break;
@@ -166,9 +168,11 @@ printf("########################################################################
 
                             if(strcasecmp(str, word) == 0) {
                                 pontos += 10;
+                                
                                 memset(aux, '\0', 1000);
                                 strcpy(word, getPalavra());
                                 alphaToMorse(word, aux);
+                                
                                 system(kill);
                                 
                                 pid = fork();
@@ -200,6 +204,24 @@ printf("########################################################################
                         sleep(3);
                     }   
                 }
+                
+                printf("Nome do jogador: ");
+                scanf(" %s", str);
+                cadastraJogador(str, pontos);
+                break;
+            
+            case 6:
+                ordena();
+            
+                printf("Nome            Pontos\n");
+            
+                for(i = 0; i < pl; i++) {
+                    printf("%s          %d\n", jogadores[i].nome, jogadores[i].pts);
+                }
+                
+                printf("Digite algo para sair\n");
+                scanf("%s", str);
+                system("clear");
                 break;
             default:
                 break;

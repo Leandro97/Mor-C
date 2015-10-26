@@ -1,2 +1,10 @@
 Para que seja possível a reprodução de sons no Linux se faz necessário a instalação do Sox. Vide comando:
 sudo apt-get install sox
+
+A compilação do programa se dá pelo comando:
+
+gcc Mor-C.c
+
+E sua execução por:
+
+./a.out

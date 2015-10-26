@@ -2,16 +2,31 @@
 #include <string.h>
 #include <stdlib.h>
 
+struct jogador {
+    char nome[15];
+    int pts;
+};
+
 FILE *fp;
-int qnt = 0, check = 0, indice, vidas, pontos;
+int qnt = 0, pl = 0, check = 0, indice, vidas, pontos;
 char palavras[1000][20];
+struct jogador jogadores[100];
 char pM[20];
 
 void getArq() {
     
-    fp = fopen("palavras", "r");
+    fp = fopen("palavras", "a+");
     while(fscanf(fp, "%s", palavras[qnt]) != EOF) {
         qnt++;
+    }
+    fclose(fp);
+}
+
+void getJogadores() {
+    fp = fopen("jogadores", "a+");
+    
+    while(fscanf(fp, "%s %d", jogadores[pl].nome, &jogadores[pl].pts) != EOF) {
+        pl++;
     }
     fclose(fp);
 }
@@ -47,6 +62,11 @@ void cadastra(char str[]) {
     fclose(fp);
 }
 
+void init() {
+    vidas = 3;
+    pontos = 0;
+}
+
 char* getPalavra() {
     return palavras[rand() % (qnt - 1)];
 }
@@ -74,7 +94,35 @@ void toca(char str[], int nivel) {
     
 }
 
-void init() {
-    vidas = 3;
-    pontos = 0;
+void cadastraJogador(char nome[], int pont) {
+    fp = fopen("jogadores", "a");
+    
+    fprintf(fp, "%s %d\n", nome, pont);
+    printf("Jogador cadastrado com sucesso!\n");
+
+    strcpy(jogadores[pl].nome, nome);
+    jogadores[pl].pts = pont;
+    
+    pl++;
+    fclose(fp);
+}
+
+ordena() {
+    int i, j, aux;
+    char nomeA[15];
+    
+    for(i = 0; i < pl; i++) {
+        for(j = i + 1; j < pl; j++) {
+            if(jogadores[j].pts > jogadores[i].pts) {
+                aux = jogadores[i].pts;
+                jogadores[i].pts = jogadores[j].pts;
+                jogadores[j].pts = aux;
+                
+                strcpy(nomeA, jogadores[i].nome);
+                strcpy(jogadores[i].nome, jogadores[j].nome);
+                strcpy(jogadores[j].nome, nomeA);
+            }
+        }
+    }
+    
 }
