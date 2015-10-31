@@ -206,11 +206,16 @@ printf("########################################################################
                 }
                 
                 do {
-                    printf("Nome do jogador(até 15 letras): ");
-                    scanf(" %s", str);
-                } while(strlen(str) > 15);
+                    memset(str, '\0', 1000);
+                    printf("Nome do jogador(até 15 letras sem espaços): ");
+                    scanf(" %[^\n]s", str);
+                } while(strlen(str) > 15 || verificaE(str));
+            
                 cadastraJogador(str, pontos);
-                break;
+                sleep(2);
+                system("clear");
+                
+                opc = 6;    
             
             case 6:
                 ordena();

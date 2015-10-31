@@ -126,3 +126,15 @@ void ordena() {
     }
     
 }
+
+int verificaE(char str[]) {
+    int i, res = 0;
+    for(i = 0; i < strlen(str); i++) {
+        if(str[i] == ' ') {
+            res++;
+            break;
+        }
+    }
+    
+    return res;
+}
