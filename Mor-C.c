@@ -163,7 +163,7 @@ printf("########################################################################
                         for(;;) {
                             printf("Vidas: %d.      Pontuação: %d\n", vidas, pontos);
                             //to mostrando a palavra só pra testar, na versão final vou tirar
-                            printf("Palavra: %s\n", word);
+                            //printf("Palavra: %s\n", word);
                             scanf(" %[^\n]s", str);
 
                             if(strcasecmp(str, word) == 0) {
@@ -205,15 +205,25 @@ printf("########################################################################
                     }   
                 }
                 
-                printf("Nome do jogador: ");
-                scanf(" %s", str);
+                do {
+                    printf("Nome do jogador(até 15 letras): ");
+                    scanf(" %s", str);
+                } while(strlen(str) > 15);
                 cadastraJogador(str, pontos);
                 break;
             
             case 6:
                 ordena();
             
-                printf("Nome            Pontos\n");
+                for(i = 0; i < pl; i++) {
+                    for(j = 0; j < 16; j++) {
+                        if(!isalpha(jogadores[i].nome[j]) && !isdigit(jogadores[i].nome[j])) {
+                            jogadores[i].nome[j] = ' ';
+                        }
+                    }
+                }
+            
+                printf("Nome                   Pontos\n");
             
                 for(i = 0; i < pl; i++) {
                     printf("%s          %d\n", jogadores[i].nome, jogadores[i].pts);

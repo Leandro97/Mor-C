@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct jogador {
-    char nome[15];
+    char nome[16];
     int pts;
 };
 
@@ -76,8 +76,8 @@ void toca(char str[], int nivel) {
         char cmT[40], cmP[40], cmE[40];
         
         sprintf(cmT, "%s%.1f%s", "play -n -q synth ", 0.8/nivel, " sine 750 vol 0.1");
-        sprintf(cmP, "%s%.1f%s", "play -n -q synth ", 0.4/nivel, " sine 750 vol 0.1");
-        sprintf(cmE, "%s%.1f%s", "play -n -q synth ", 0.4/nivel, " sine 750 vol 0");
+        sprintf(cmP, "%s%.1f%s", "play -n -q synth ", 0.3/nivel, " sine 750 vol 0.1");
+        sprintf(cmE, "%s%.1f%s", "play -n -q synth ", 0.3/nivel, " sine 750 vol 0");
         
         if(str[i] == '-') {
             system(cmT);
@@ -107,7 +107,7 @@ void cadastraJogador(char nome[], int pont) {
     fclose(fp);
 }
 
-ordena() {
+void ordena() {
     int i, j, aux;
     char nomeA[15];
     
