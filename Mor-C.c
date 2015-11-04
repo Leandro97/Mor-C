@@ -46,7 +46,12 @@ printf("########################################################################
         memset(str, '\n', 100);
         
         if(opc == 7) {
-            system("clear");
+            
+//            system("clear");
+//            for(i = 0; i < pl; i++) {
+//                printf("%s %d\n", jogadores[i].nome, jogadores[i].pts);
+//            }
+            
             printf("Até mais! ;D\n");
             break;
         }
@@ -212,7 +217,7 @@ printf("########################################################################
                 } while(strlen(str) > 15 || verificaE(str));
             
                 cadastraJogador(str, pontos);
-                sleep(2);
+
                 system("clear");
                 
                 opc = 6;    
@@ -220,18 +225,10 @@ printf("########################################################################
             case 6:
                 ordena();
             
-                for(i = 0; i < pl; i++) {
-                    for(j = 0; j < 16; j++) {
-                        if(!isalpha(jogadores[i].nome[j]) && !isdigit(jogadores[i].nome[j])) {
-                            jogadores[i].nome[j] = ' ';
-                        }
-                    }
-                }
-            
-                printf("Nome                   Pontos\n");
+                printf("Nome                Pontos\n");
             
                 for(i = 0; i < pl; i++) {
-                    printf("%s          %d\n", jogadores[i].nome, jogadores[i].pts);
+                    formata(jogadores[i].nome, jogadores[i].pts);
                 }
                 
                 printf("Digite algo para sair\n");

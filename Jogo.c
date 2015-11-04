@@ -94,17 +94,55 @@ void toca(char str[], int nivel) {
     
 }
 
-void cadastraJogador(char nome[], int pont) {
-    fp = fopen("jogadores", "a");
-    
-    fprintf(fp, "%s %d\n", nome, pont);
-    printf("Jogador cadastrado com sucesso!\n");
+void formata(char nome[], int pontos) {
+    printf("%s", nome);
+    for(j = 0; j < 20; j++) {
+        if(!isalpha(nome[j]) && !isdigit(nome[j])) {
+            printf(" ");
+        }
+    }
 
-    strcpy(jogadores[pl].nome, nome);
-    jogadores[pl].pts = pont;
+    printf(" %d\n", pontos);
+}
+
+void cadastraJogador(char nome[], int pont) {
+    int ck = 0;
     
-    pl++;
-    fclose(fp);
+    for(i = 0; i < pl; i++) {
+        if(strcasecmp(jogadores[i].nome,nome) == 0) {
+            ck++;
+            
+            if(jogadores[i].pts < pont) {
+                jogadores[i].pts = pont;
+                
+                fp = fopen("jogadores", "w");
+                
+                for(j = 0; j < pl; j++) {
+                    fprintf(fp, "%s %d\n", jogadores[j].nome, jogadores[j].pts);
+                }
+                
+                fclose(fp);
+                printf("Pontuação alterada\n");
+            }
+            
+            break;
+        }
+    }
+    
+    if(ck == 0) {
+        
+        fp = fopen("jogadores", "a");
+    
+        fprintf(fp, "%s %d\n", nome, pont);
+        printf("Jogador cadastrado com sucesso!\n");
+
+        strcpy(jogadores[pl].nome, nome);
+        jogadores[pl].pts = pont;
+
+        pl++;
+        fclose(fp);
+        sleep(1);
+    }
 }
 
 void ordena() {

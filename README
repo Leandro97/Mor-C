@@ -1,4 +1,9 @@
-Para que seja possível a reprodução de sons no Linux se faz necessário a instalação do Sox. Vide comando:
+/**
+	Autoria de Leandro Martins de Freitas. Aluno do curso de Ciência da Computação da Universidade Federal de Alagoas.
+	Código desenvolvido em sistema linux.
+*/
+
+Para que seja possível a reprodução de sons no Linux se faz necessário a instalação do pacote Sox. Vide comando:
 
 sudo apt-get install sox
 
