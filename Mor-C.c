@@ -147,7 +147,7 @@ printf("########################################################################
             
             //Jogo
             case 5:
-                printf("O objetivo deste jogo é treinar o reconhecimento de Morse através da audição.\nSerão apresentadaos sons de palavras aleatórias e sua missão é informar que\npalavra(em alfabeto) é essa. Você possui 3 vidas, ao errar perde uma.\nAo acertar, uma nova palavra é gerada e voce ganha 10 pontos. As palavras são\napresentadas a cada 3 segundos.\n");
+                printf("O objetivo deste jogo é treinar o reconhecimento de Morse através da audição.\nSerão apresentadaos sons de palavras aleatórias e sua missão é informar que\npalavra(em alfabeto) é essa. Você possui 3 vidas, ao errar perde uma.\nAo acertar, uma nova palavra é gerada e voce ganha 10 pontos. As palavras são\napresentadas a cada 3 segundos. Para sair digite \";\" e enter.\n");
                 do {
                     printf("Escolha o nível. Easy(1), Normal(2), Hard(3)\n");
                     scanf("%d", &nivel);
@@ -166,7 +166,7 @@ printf("########################################################################
                 for(;;){
                     if(pid > 0) {
                         for(;;) {
-                            printf("Vidas: %d.      Pontuação: %d\n", vidas, pontos);
+                            printf("Vidas: %d.      Pontuação: %d.\n", vidas, pontos);
                             //to mostrando a palavra só pra testar, na versão final vou tirar
                             //printf("Palavra: %s\n", word);
                             scanf(" %[^\n]s", str);
@@ -206,7 +206,6 @@ printf("########################################################################
                     
                     if(pid == 0) {
                         toca(aux, nivel);
-                        sleep(3);
                     }   
                 }
                 

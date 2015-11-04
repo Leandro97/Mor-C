@@ -13,6 +13,12 @@ char palavras[1000][20];
 struct jogador jogadores[100];
 char pM[20];
 
+
+void init() {
+    vidas = 3;
+    pontos = 0;
+}
+
 void getArq() {
     
     fp = fopen("palavras", "a+");
@@ -22,14 +28,6 @@ void getArq() {
     fclose(fp);
 }
 
-void getJogadores() {
-    fp = fopen("jogadores", "a+");
-    
-    while(fscanf(fp, "%s %d", jogadores[pl].nome, &jogadores[pl].pts) != EOF) {
-        pl++;
-    }
-    fclose(fp);
-}
 
 void cadastra(char str[]) {
     fp = fopen("palavras", "a");
@@ -62,14 +60,19 @@ void cadastra(char str[]) {
     fclose(fp);
 }
 
-void init() {
-    vidas = 3;
-    pontos = 0;
+void getJogadores() {
+    fp = fopen("jogadores", "a+");
+    
+    while(fscanf(fp, "%s %d", jogadores[pl].nome, &jogadores[pl].pts) != EOF) {
+        pl++;
+    }
+    fclose(fp);
 }
 
 char* getPalavra() {
     return palavras[rand() % (qnt - 1)];
 }
+
 
 void toca(char str[], int nivel) {
     for(i = 0; i < strlen(str); i++) {
@@ -92,17 +95,20 @@ void toca(char str[], int nivel) {
         }
     }
     
+    sleep(3);
+    
 }
 
-void formata(char nome[], int pontos) {
-    printf("%s", nome);
-    for(j = 0; j < 20; j++) {
-        if(!isalpha(nome[j]) && !isdigit(nome[j])) {
-            printf(" ");
+int verificaE(char str[]) {
+    int i, res = 0;
+    for(i = 0; i < strlen(str); i++) {
+        if(str[i] == ' ') {
+            res++;
+            break;
         }
     }
-
-    printf(" %d\n", pontos);
+    
+    return res;
 }
 
 void cadastraJogador(char nome[], int pont) {
@@ -145,6 +151,18 @@ void cadastraJogador(char nome[], int pont) {
     }
 }
 
+void formata(char nome[], int pontos) {
+    printf("%s", nome);
+    for(j = 0; j < 20; j++) {
+        if(!isalpha(nome[j]) && !isdigit(nome[j])) {
+            printf(" ");
+        }
+    }
+
+    printf(" %d\n", pontos);
+}
+
+
 void ordena() {
     int i, j, aux;
     char nomeA[15];
@@ -163,16 +181,4 @@ void ordena() {
         }
     }
     
-}
-
-int verificaE(char str[]) {
-    int i, res = 0;
-    for(i = 0; i < strlen(str); i++) {
-        if(str[i] == ' ') {
-            res++;
-            break;
-        }
-    }
-    
-    return res;
 }
