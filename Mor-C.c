@@ -148,6 +148,17 @@ printf("########################################################################
             //Jogo
             case 5:
                 printf("O objetivo deste jogo é treinar o reconhecimento de Morse através da audição.\nSerão apresentadaos sons de palavras aleatórias e sua missão é informar que\npalavra(em alfabeto) é essa. Você possui 3 vidas, ao errar perde uma.\nAo acertar, uma nova palavra é gerada e voce ganha 10 pontos. As palavras são\napresentadas a cada 3 segundos. Para sair digite \";\" e enter.\n");
+            
+                printf("\nATENÇÃO: para que sejam executados os sons, deve-se instalar o pacote SoX.\nAperte '1' se o pacote ainda não foi instalado, ou '2' para continuar.\n");
+                    scanf("%d", &opc);
+            
+                    if(opc == 1) {
+                        system("sudo apt-get install sox");
+                        system("clear");
+                    } else {
+                        system("clear");
+                    }
+            
                 do {
                     printf("Escolha o nível. Easy(1), Normal(2), Hard(3)\n");
                     scanf("%d", &nivel);
