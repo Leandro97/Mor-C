@@ -9,16 +9,6 @@
 #include "Traducao.c"
 #include "Jogo.c"
 
-//char* realoca(char str[], char *aux) {
-//    while(size <= strlen(aux)) {
-//        aux = realloc(aux, ((size * 2) + 1) * sizeof(char));
-//        printf("Size: %d\n", size);
-//        size *= 2;
-//    }
-//    
-//    return aux; 
-//}
-
 int main() {
     int opc, pid, nivel, p, j;
     char str[1000], word[1000];
@@ -28,10 +18,21 @@ int main() {
     getArq();
     getJogadores();
     
+    printf("\nATENÇÃO: para que sejam executados os sons, deve-se instalar o pacote SoX.\nAperte '1' se o pacote ainda não foi instalado, ou '2' para continuar.\n");
+    scanf("%d", &opc);
+            
+    if(opc == 1) {
+        system("sudo apt-get install sox");    
+        system("clear");
+    } else {
+        system("clear");
+    }
+    
     for(;;) {
+        
         //header    
             printf("################################################################################\n");    
-printf("#                                   Mor-C                                      #\n");       
+printf("#                                   Mor-C                                      #\n");      
 printf("################################################################################\n");
         printf("Escolha sua opção: \n");
         printf("1 - Instruções e caractéres.\n");
@@ -46,12 +47,6 @@ printf("########################################################################
         memset(str, '\n', 100);
         
         if(opc == 7) {
-            
-//            system("clear");
-//            for(i = 0; i < pl; i++) {
-//                printf("%s %d\n", jogadores[i].nome, jogadores[i].pts);
-//            }
-            
             printf("Até mais! ;D\n");
             break;
         }
@@ -139,7 +134,7 @@ printf("########################################################################
                         break;
                     }
                     
-                    cadastra(str);
+                    cadastraPalavra(str);
 
                 }
                 system("clear");
@@ -147,18 +142,8 @@ printf("########################################################################
             
             //Jogo
             case 5:
-                printf("O objetivo deste jogo é treinar o reconhecimento de Morse através da audição.\nSerão apresentadaos sons de palavras aleatórias e sua missão é informar que\npalavra(em alfabeto) é essa. Você possui 3 vidas, ao errar perde uma.\nAo acertar, uma nova palavra é gerada e voce ganha 10 pontos. As palavras são\napresentadas a cada 3 segundos. Para sair digite \";\" e enter.\n");
-            
-                printf("\nATENÇÃO: para que sejam executados os sons, deve-se instalar o pacote SoX.\nAperte '1' se o pacote ainda não foi instalado, ou '2' para continuar.\n");
-                    scanf("%d", &opc);
-            
-                    if(opc == 1) {
-                        system("sudo apt-get install sox");
-                        system("clear");
-                    } else {
-                        system("clear");
-                    }
-            
+                printf("O objetivo deste jogo é treinar o reconhecimento de Morse através da audição.\nSerão apresentadaos sons de palavras aleatórias e sua missão é informar que\npalavra(em alfabeto) é essa. Você possui 3 vidas, ao errar perde uma.\nAo acertar, uma nova palavra é gerada e voce ganha 10 pontos. As palavras são\napresentadas a cada 2 segundos. Para sair digite \";\" e enter.\n");
+
                 do {
                     printf("Escolha o nível. Easy(1), Normal(2), Hard(3)\n");
                     scanf("%d", &nivel);
@@ -167,6 +152,7 @@ printf("########################################################################
             
                 system("clear");
                 init();
+            
                 memset(aux, '\0', 1000);
                 strcpy(word, getPalavra());
                 alphaToMorse(word, aux);
@@ -178,7 +164,7 @@ printf("########################################################################
                     if(pid > 0) {
                         for(;;) {
                             printf("Vidas: %d.      Pontuação: %d.\n", vidas, pontos);
-                            //to mostrando a palavra só pra testar, na versão final vou tirar
+                            
                             //printf("Palavra: %s\n", word);
                             scanf(" %[^\n]s", str);
 
@@ -194,7 +180,7 @@ printf("########################################################################
                                 pid = fork();
                                 sprintf(kill, "%s%d", "kill -9 ", pid);
                                 
-                                sleep(1,5);
+                                sleep(2);
                                 system("clear");
                                 break;
                             } else {
@@ -224,7 +210,7 @@ printf("########################################################################
                     memset(str, '\0', 1000);
                     printf("Nome do jogador(até 15 letras sem espaços): ");
                     scanf(" %[^\n]s", str);
-                } while(strlen(str) > 15 || verificaE(str));
+                } while(strlen(str) > 15 || verificaE(str) || !verificaA(str));
             
                 cadastraJogador(str, pontos);
 

@@ -13,12 +13,13 @@ char palavras[1000][20];
 struct jogador jogadores[100];
 char pM[20];
 
-
+//ao iniciar um novo jogo um novo "perfil" é criado
 void init() {
     vidas = 3;
     pontos = 0;
 }
 
+//recuperação das palavras cadastradas no arquivo
 void getArq() {
     
     fp = fopen("palavras", "a+");
@@ -28,8 +29,8 @@ void getArq() {
     fclose(fp);
 }
 
-
-void cadastra(char str[]) {
+//cadastro de novas palavras para o jogo
+void cadastraPalavra(char str[]) {
     fp = fopen("palavras", "a");
     memset(pM, '\0', 20);
     
@@ -60,6 +61,7 @@ void cadastra(char str[]) {
     fclose(fp);
 }
 
+//recuperação dos jogadores cadastrados no arquivo
 void getJogadores() {
     fp = fopen("jogadores", "a+");
     
@@ -69,18 +71,21 @@ void getJogadores() {
     fclose(fp);
 }
 
+//escolha de uma palavra aletória dentre as cadastradas
 char* getPalavra() {
     return palavras[rand() % (qnt - 1)];
 }
 
-
+//essa função possiblita a execução dos sons de uma palavra
 void toca(char str[], int nivel) {
+    
+    char cmT[40], cmP[40], cmE[40];
+    
+    sprintf(cmT, "%s%.1f%s", "play -n -q synth ", 0.8/nivel, " sine 750 vol 0.1");
+    sprintf(cmP, "%s%.1f%s", "play -n -q synth ", 0.3/nivel, " sine 750 vol 0.1");
+    sprintf(cmE, "%s%.1f%s", "play -n -q synth ", 0.3/nivel, " sine 750 vol 0");
+    
     for(i = 0; i < strlen(str); i++) {
-        char cmT[40], cmP[40], cmE[40];
-        
-        sprintf(cmT, "%s%.1f%s", "play -n -q synth ", 0.8/nivel, " sine 750 vol 0.1");
-        sprintf(cmP, "%s%.1f%s", "play -n -q synth ", 0.3/nivel, " sine 750 vol 0.1");
-        sprintf(cmE, "%s%.1f%s", "play -n -q synth ", 0.3/nivel, " sine 750 vol 0");
         
         if(str[i] == '-') {
             system(cmT);
@@ -95,10 +100,11 @@ void toca(char str[], int nivel) {
         }
     }
     
-    sleep(3);
+    sleep(2);
     
 }
 
+//verifica se string tem espaços
 int verificaE(char str[]) {
     int i, res = 0;
     for(i = 0; i < strlen(str); i++) {
@@ -111,13 +117,16 @@ int verificaE(char str[]) {
     return res;
 }
 
+//cadastra novos jogadores
 void cadastraJogador(char nome[], int pont) {
     int ck = 0;
     
     for(i = 0; i < pl; i++) {
+        //aqui é verificado se o jogador existe
         if(strcasecmp(jogadores[i].nome,nome) == 0) {
             ck++;
             
+            //se existir e a nova pontuação for melhor que a antiga, os dads são atualizados
             if(jogadores[i].pts < pont) {
                 jogadores[i].pts = pont;
                 
@@ -135,6 +144,7 @@ void cadastraJogador(char nome[], int pont) {
         }
     }
     
+    //se o jogador não exister, é cadastrado normalmente 
     if(ck == 0) {
         
         fp = fopen("jogadores", "a");
@@ -151,6 +161,7 @@ void cadastraJogador(char nome[], int pont) {
     }
 }
 
+//formatação do ranking
 void formata(char nome[], int pontos) {
     printf("%s", nome);
     for(j = 0; j < 20; j++) {
@@ -162,7 +173,7 @@ void formata(char nome[], int pontos) {
     printf(" %d\n", pontos);
 }
 
-
+//ordenação dos jogadores do ranking
 void ordena() {
     int i, j, aux;
     char nomeA[15];
@@ -180,5 +191,4 @@ void ordena() {
             }
         }
     }
-    
 }
