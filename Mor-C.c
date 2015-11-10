@@ -59,7 +59,7 @@ printf("########################################################################
                     printf("Em Morse usa-se os caractéres \"-\" e \".\" para escrever. Cada letra e número é um conjunto de \"-\"s e \".\"s.\n");
                     printf("Letras são separadas por espaços e palavras por quebras de linha.\nExemplo: ");
                     printf("\"Projeto de P1\"\n");
-                    printf("\".--. .-. --- .--- . - ---\n-.. .\n.--. .---- \"\n");
+                    printf("\".--. .-. --- .--- . - ---\n-.. .\n.--. .---- \"\n\n");
                     printf("Alfabeto - Morse\n");
                     for(i = 0; i < 36; i++) {
                         printf("%c = %s  ||  %c = %s ||  %c = %s\n", alpha[i][0], morse[i], alpha[i + 1][0], morse[i + 1], alpha[i + 2][0], morse[i + 2]); 
