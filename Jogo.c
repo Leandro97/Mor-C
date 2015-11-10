@@ -126,7 +126,7 @@ void cadastraJogador(char nome[], int pont) {
         if(strcasecmp(jogadores[i].nome,nome) == 0) {
             ck++;
             
-            //se existir e a nova pontuação for melhor que a antiga, os dads são atualizados
+            //se existir e a nova pontuação for melhor que a antiga, os dados são atualizados
             if(jogadores[i].pts < pont) {
                 jogadores[i].pts = pont;
                 
