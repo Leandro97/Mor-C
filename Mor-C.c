@@ -79,6 +79,9 @@ printf("########################################################################
                 printf("Digite as palavras em morse linha a linha. Aperte \";\" e enter para sair.\n");
             
                 while(strcasecmp(str, ";") != 0) {
+                    
+                    memset(aux, '\0', 1000);
+                    memset(str, '\0', 1000);
                     scanf(" %[^\n]s", str);
                     
                     if(strcasecmp(str, ";") == 0) {
@@ -99,6 +102,9 @@ printf("########################################################################
             case 3:
                 printf("Digite a palavra (ou frase) a ser traduzida ou aperte \";\" e enter para sair.\n");
                 while(strcasecmp(str, ";") != 0) {
+                    
+                    memset(str, '\0', 1000);
+                    memset(aux, '\0', 1000);
                     scanf("%s", str);
                     
                     if(strcasecmp(str, ";") == 0) {
